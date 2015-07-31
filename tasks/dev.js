@@ -10,6 +10,7 @@ gulp.task('setup-watchers', (callback) => {
 
 gulp.task('dev', (callback) => runSequence(
   'setup-watchers',
+  'assets-serve',
   'monolith-serve',
   callback
 ));

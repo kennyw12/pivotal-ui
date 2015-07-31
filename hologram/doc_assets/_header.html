@@ -3,12 +3,20 @@
   <head>
     <title>a brand new styleguide: <%= title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="pivotal-ui.css">
-    <link rel="stylesheet" href="styleguide/styleguide.css">
-    <link rel="stylesheet" href="styleguide/github.css">
-    <link rel="stylesheet" disabled href="prismjs/prism.css">
-    <link rel="stylesheet" href="prismjs/prism-okaidia.css">
-    <link rel="shortcut icon" href="styleguide/favicon.ico" type="image/x-icon">
+    <% require('json') %>
+    <% def asset_path(filename)
+        json = JSON.parse(File.read("config/#{ENV['NODE_ENV']}.json"))
+        asset_root_parts = [json['assetHost'], json['assetPort']].compact
+        asset_root = asset_root_parts.empty? ? nil : asset_root_parts.join(':')
+        File.join([asset_root, filename].compact)
+      end
+    %>
+    <link rel="stylesheet" href="<%= asset_path('pivotal-ui.css') %>">
+    <link rel="stylesheet" href="<%= asset_path('styleguide/styleguide.css') %>">
+    <link rel="stylesheet" href="<%= asset_path('styleguide/github.css') %>">
+    <link rel="stylesheet" disabled href="<%= asset_path('prismjs/prism.css') %>">
+    <link rel="stylesheet" href="<%= asset_path('prismjs/prism-okaidia.css') %>">
+    <link rel="shortcut icon" href="<%= asset_path('styleguide/favicon.ico') %>" type="image/x-icon">
     <script>
       var _prum = [['id', '5591b4ebabe53d4955475a76'],
         ['mark', 'firstbyte', (new Date()).getTime()]];
@@ -22,7 +30,7 @@
     </script>
 
     <% if file_name == 'react.html' %>
-      <script src="pivotal-ui-react.js"></script>
+      <script src="<%= asset_path('pivotal-ui-react.js') %>"></script>
       <script>
         if (window.callPhantom) {
           (function() {
@@ -36,10 +44,10 @@
       </script>
       <script src="http://fb.me/JSXTransformer-0.12.0.js"></script>
     <% else %>
-      <script src="pivotal-ui.js"></script>
+      <script src="<%= asset_path('pivotal-ui.js') %>"></script>
     <% end %>
-    <script src="zeroclipboard/ZeroClipboard.js"></script>
-    <script src="styleguide/styleguide.js"></script>
+    <script src="<%= asset_path('zeroclipboard/ZeroClipboard.js') %>"></script>
+    <script src="<%= asset_path('styleguide/styleguide.js') %>"></script>
 
     <script>
 
@@ -66,7 +74,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/" class="styleguide-logo"><img src="styleguide/pui-logo@2x.png" alt="Introduction to Pivotal UI" height="28px"></a>
+        <a href="/" class="styleguide-logo"><img src="<%= asset_path('styleguide/pui-logo@2x.png') %>" alt="Introduction to Pivotal UI" height="28px"></a>
         <div id="styleguide-first-level-nav-wrapper">
           <ul id="styleguide-first-level-nav">
 

@@ -128,3 +128,17 @@ gulp.task('monolith-serve', ['monolith'], () => {
 });
 
 gulp.task('monolith-kill-server', () => plugins.connect.serverClose());
+
+function all() {
+
+}
+
+gulp.task('assets-serve', () => {
+  var {assetPort: port} = require(`./config/${process.env.NODE_ENV || 'development'}.json`);
+  return all()
+    .pipe(plugins.webserver({
+      directoryListing: true,
+      livereload: true,
+      port
+    }));
+});
