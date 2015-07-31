@@ -1,3 +1,4 @@
+require 'babel/transpiler'
 class DivId
   @current_id = 0
 
@@ -15,15 +16,19 @@ Hologram::CodeExampleRenderer::Factory.define 'react' do
   lexer { Rouge::Lexer.find(:html) }
 
   rendered_example do |code|
+    js_code = Babel::Transpiler.transform("var tacos = #{code.strip}")["code"]
     div_id = DivId.next_id
     [
       "<div id=\"#{div_id}\"></div>",
-      "<script type=\"text/jsx\">",
-      "  React.render(",
-      "    #{code.strip},",
-      "    document.getElementById('#{div_id}')",
-      "  );",
-      "</script>"
+      '<script>',
+      '  (function() {',
+      "    #{js_code}",
+      '    React.render(',
+      '      tacos,',
+      "      document.getElementById('#{div_id}')",
+      '    );',
+      '  })();',
+      '</script>'
     ].join("\n")
   end
 end
