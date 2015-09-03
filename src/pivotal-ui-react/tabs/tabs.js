@@ -1,8 +1,5 @@
 import React from 'react';
-import Tabs from 'react-bootstrap/lib/Tabs';
-import BsTab from 'react-bootstrap/lib/Tab';
-import Accordion from 'react-bootstrap/lib/Accordion';
-import Panel from 'react-bootstrap/lib/Panel';
+const {Accordion, Panel, Tabs, Tab: BsTab} = require('react-bootstrap');
 import uniqueid from 'lodash.uniqueid';
 import classnames from 'classnames';
 

@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var Collapse = require('react-bootstrap/lib/Collapse');
+var {Collapse} = require('react-bootstrap');
 
 /**
  * @component ExpanderTrigger

@@ -1,4 +1,4 @@
-import BsOverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
+const {OverlayTrigger: BsOverlayTrigger} = require('react-bootstrap');
 import React from 'react';
 import uniqueid from 'lodash.uniqueid';
 
