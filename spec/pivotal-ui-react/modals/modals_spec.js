@@ -235,8 +235,6 @@ describe('BaseModal', function() {
     let onRequestClose;
 
     beforeEach(function() {
-      spyOn(document.body, 'addEventListener');
-
       onRequestClose = jasmine.createSpy('onRequestClose');
       React.render(
         <BaseModal open id="ms-modal" onRequestClose={onRequestClose}/>,
@@ -252,13 +250,6 @@ describe('BaseModal', function() {
 
     it('is triggered when the overlay is clicked', function() {
       $('.modal').simulate('click');
-
-      expect(onRequestClose).toHaveBeenCalled();
-    });
-
-    it('is triggered when escape is pressed', function() {
-      document.body.addEventListener.calls.mostRecent().args[1]({keyCode: 27});
-      //lame: for some reason we're not able to trigger events on document body
 
       expect(onRequestClose).toHaveBeenCalled();
     });

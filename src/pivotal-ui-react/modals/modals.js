@@ -4,6 +4,9 @@ require('classlist-polyfill');
 import {mergeProps} from 'pui-react-helpers';
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
+const BsModal = require('react-bootstrap/lib/Modal');
+const BsModalHeader = require('react-bootstrap/lib/ModalHeader');
+
 const BaseModal = React.createClass({
   propTypes: {
     title: React.PropTypes.string,
@@ -17,79 +20,17 @@ const BaseModal = React.createClass({
     };
   },
 
-  componentDidMount() {
-    document.body.addEventListener('focus', this.ignoreKey, true);
-    document.body.addEventListener('keyup', this.onKeyUp, true);
-  },
-
-  componentWillUnmount() {
-    document.body.removeEventListener('focus', this.ignoreKey, true);
-    document.body.removeEventListener('keyup', this.onKeyUp, true);
-  },
-
-  componentWillUpdate(nextProps) {
-    if (nextProps.open) {
-      document.body.classList.add('modal-open');
-    }
-    else {
-      document.body.classList.remove('modal-open');
-    }
-  },
-
-  close() {
-    this.props.onRequestClose();
-  },
-
-  childrenClick(e) {
-    if (e.target === this.refs.modal.getDOMNode()) {
-      this.close();
-    }
-  },
-
-  ignoreKey(e) {
-    if (this.props.open && (!(React.findDOMNode(this.refs.modalTransitions).contains(e.target)))) {
-      e.preventDefault();
-      React.findDOMNode(this.refs.modalTransitions).focus();
-    }
-  },
-
-  onKeyUp(e) {
-    if (e.keyCode === 27) {
-      this.close();
-    }
-  },
-
   render() {
-    const {open, title, children, ...modalProps} = this.props;
-    let modal = null;
-    let backdrop = null;
-
-    if (open) {
-      modal = (
-        <div className="modal modal-basic" style={{ display: 'block'}} key="bananas" ref="modal"
-             onClick={this.childrenClick} role="dialog">
-          <div className="modal-dialog">
-            <div {...mergeProps(modalProps, {className: 'modal-content'})}>
-              <div className="modal-header">
-                <button type="button" className="close" onClick={this.close}>
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <DefaultH4 className="modal-title" id="modalTitle">{title}</DefaultH4>
-              </div>
-              {children}
-            </div>
-          </div>
-        </div>
-      );
-      backdrop = (<div className="modal-backdrop in" key="tangerine" onClick={this.close}></div>);
-    }
+    const {open, title, children, onRequestClose, ...modalProps} = this.props;
 
     return (
-      <div tabIndex="-1" ref="modalTransitions" aria-labelledby="modalTitle">
-        <ReactCSSTransitionGroup transitionName="modal-backdrop-fade">{backdrop}</ReactCSSTransitionGroup>
-        <ReactCSSTransitionGroup transitionName="modal-fade">{modal}</ReactCSSTransitionGroup>
-      </div>
-    );
+      <BsModal show={open} onHide={onRequestClose} {...mergeProps(modalProps, {className: 'modal-basic'})}>
+        <BsModalHeader className="modal-header" closeButton>
+          <DefaultH4 className="modal-title" id="modalTitle">{title}</DefaultH4>
+        </BsModalHeader>
+        {children}
+      </BsModal>
+    )
   }
 });
 
