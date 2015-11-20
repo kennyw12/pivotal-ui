@@ -42,6 +42,7 @@ Require the subcomponents:
 ```
 var Tooltip = require('pui-react-tooltip').Tooltip;
 var OverlayTrigger = require('pui-react-overlay-trigger').OverlayTrigger;
+var OverlayManual = require('pui-react-overlay-trigger').OverlayManual;
 ```
 
 
@@ -78,6 +79,12 @@ Tooltips are placed using the `placement` property on `OverlayTrigger`, "left", 
     <OverlayTrigger placement="bottom" overlay={<Tooltip>I should be on the bottom</Tooltip>}>
       <span className="overlay-trigger" tabIndex="0"> tooltip on the bottom.</span>
     </OverlayTrigger>
+  </p>
+  <p>
+    Check out this
+    <OverlayManual placement="bottom" display overlay={<Tooltip>I should be on the bottom</Tooltip>}>
+      <span className="overlay-trigger" tabIndex="0"> tooltip on the bottom.</span>
+    </OverlayManual>
   </p>
 </div>
 ```

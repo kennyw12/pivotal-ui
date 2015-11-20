@@ -104,3 +104,13 @@ $('#disabled-button-with-tooltip').tooltip();
     color: darken($link-color, 6%);
   }
 }
+
+.overlay-manual {
+  position: relative;
+  .tooltip {
+    bottom: 70%;
+    left: 30%;
+    position: absolute;
+    opacity: 1;
+  }
+}

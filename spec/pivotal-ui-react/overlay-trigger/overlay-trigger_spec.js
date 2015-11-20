@@ -107,3 +107,25 @@ describe('OverlayTrigger', function() {
     });
   });
 });
+var OverlayManual = require('../../../src/pivotal-ui-react/overlay-trigger/overlay-trigger').OverlayManual;
+
+describe('OverlayManual', function () {
+  beforeEach(function () {
+    ReactDOM.render(<OverlayManual overlay={<Tooltip id="tooltip">Hello</Tooltip>}/>, root);
+  });
+
+  it('does not normally display the tooltip', function() {
+    expect('.tooltip').not.toExist();
+  });
+
+  describe('when display is true', function () {
+    beforeEach(function () {
+      ReactDOM.render(<OverlayManual display overlay={<Tooltip id="tooltip">Hello</Tooltip>}/>, root);
+    });
+
+    it('shows the tooltip', function() {
+      expect('.tooltip').toExist();
+      expect('.overlay-manual').toHaveAttr('aria-described-by', 'tooltip')
+    });
+  });
+});
